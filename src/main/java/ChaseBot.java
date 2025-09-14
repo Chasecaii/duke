@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChaseBot {
@@ -7,13 +8,20 @@ public class ChaseBot {
         System.out.println("What can I do for you?");
 
         Scanner sc = new Scanner(System.in);
-        while (true){
+        ArrayList<String> tasks = new ArrayList<>();
+
+        while (true) {
             String line = sc.nextLine();
-            if (line.equals("bye")){
-                System.out.println("Bye. Hope to See you again soon!");
+            if (line.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (line.equals("list")) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
+                }
             } else {
-                System.out.println(line);
+                tasks.add(line);
+                System.out.println("added: " + line);
             }
         }
         sc.close();
