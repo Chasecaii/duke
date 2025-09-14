@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Duke {
+public class ChaseBot {
     public static void main(String[] args) {
         String bot_name = "Chase Bot";
         System.out.println("Hello! I'm " + bot_name);
@@ -12,6 +12,8 @@ public class Duke {
             if (line.equals("bye")){
                 System.out.println("Bye. Hope to See you again soon!");
                 break;
+            } else {
+                System.out.println(line);
             }
         }
         sc.close();
