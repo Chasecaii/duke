@@ -5,3 +5,6 @@ D | 0 | return book | 2019-10-15
 D | 0 | strange format | next Sunday
 E | 0 | project meeting | 2025-12-01
 E | 0 | casual chat | Mon 2pm
+T | 0 | read book
+D | 0 | submit report | Sunday
+E | 0 | team meeting | 2025-12-01

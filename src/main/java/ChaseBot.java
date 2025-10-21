@@ -78,6 +78,31 @@ public class ChaseBot {
             return true;
         }
 
+        if (line.startsWith("find")) {
+            String keyword = line.length() > 4 ? line.substring(4).trim() : "";
+            if (keyword.isEmpty()) {
+                throw new DukeException("☹ OOPS!!! Use: find <keyword>");
+            }
+            String kw = keyword.toLowerCase();
+
+            ArrayList<Task> matches = new ArrayList<>();
+            for (Task t : tasks) {
+                if (t.getDescription().toLowerCase().contains(kw)) {
+                    matches.add(t);
+                }
+            }
+
+            if (matches.isEmpty()) {
+                System.out.println("No matching tasks found.");
+            } else {
+                System.out.println("Here are the matching tasks in your list:");
+                for (int i = 0; i < matches.size(); i++) {
+                    System.out.println((i + 1) + ". " + matches.get(i));
+                }
+            }
+            return false;
+        }
+
         if (line.startsWith("todo")) {
             String desc = line.length() > 4 ? line.substring(4).trim() : "";
             if (desc.isEmpty()) {
