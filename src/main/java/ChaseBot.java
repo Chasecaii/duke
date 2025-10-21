@@ -7,16 +7,22 @@ public class ChaseBot {
         System.out.println("What can I do for you?");
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+
+        Storage storage = new Storage("data/duke.txt");
+        ArrayList<Task> tasks = storage.load();
 
         while (true) {
             String line = sc.nextLine().trim();
             if (line.equals("bye")) {
+                storage.save(tasks);
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             }
             try {
-                handleLine(line, tasks);
+                boolean changed = handleLine(line, tasks);
+                if (changed) {
+                    storage.save(tasks);
+                }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } catch (Exception e) {
@@ -26,16 +32,16 @@ public class ChaseBot {
         sc.close();
     }
 
-    private static void handleLine(String line, ArrayList<Task> tasks) throws DukeException {
+    private static boolean handleLine(String line, ArrayList<Task> tasks) throws DukeException {
         if (line.equals("list")) {
             if (tasks.isEmpty()) {
                 System.out.println("You have no tasks yet.");
-                return;
+                return false;
             }
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
-            return;
+            return false;
         }
 
         if (line.startsWith("mark ")) {
@@ -46,7 +52,7 @@ public class ChaseBot {
             tasks.get(idx).mark();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println("  " + tasks.get(idx));
-            return;
+            return true;
         }
 
         if (line.startsWith("unmark ")) {
@@ -57,10 +63,9 @@ public class ChaseBot {
             tasks.get(idx).unmark();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("  " + tasks.get(idx));
-            return;
+            return true;
         }
 
-        // ✅ Level-6: delete
         if (line.startsWith("delete ")) {
             int idx = parseIndex(line.substring(7).trim());
             if (!isValidIndex(idx, tasks)) {
@@ -70,7 +75,7 @@ public class ChaseBot {
             System.out.println("Noted. I've removed this task:");
             System.out.println("  " + removed);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            return;
+            return true;
         }
 
         if (line.startsWith("todo")) {
@@ -81,7 +86,7 @@ public class ChaseBot {
             Task t = new Todo(desc);
             tasks.add(t);
             System.out.println("added: " + t);
-            return;
+            return true;
         }
 
         if (line.startsWith("deadline")) {
@@ -98,7 +103,7 @@ public class ChaseBot {
             Task t = new Deadline(desc, by);
             tasks.add(t);
             System.out.println("added: " + t);
-            return;
+            return true;
         }
 
         if (line.startsWith("event")) {
@@ -115,7 +120,7 @@ public class ChaseBot {
             Task t = new Event(desc, at);
             tasks.add(t);
             System.out.println("added: " + t);
-            return;
+            return true;
         }
 
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

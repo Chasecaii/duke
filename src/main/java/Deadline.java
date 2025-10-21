@@ -11,4 +11,9 @@ public class Deadline extends Task {
         return "[" + TaskType.DEADLINE.code() + "][" + getStatusIcon() + "] "
                 + getDescription() + " (by: " + by + ")";
     }
+
+    @Override
+    public String toDataString() {
+        return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + by;
+    }
 }

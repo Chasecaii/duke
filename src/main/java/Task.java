@@ -11,13 +11,13 @@ public abstract class Task {
 
     public void unmark() { this.isDone = false; }
 
-    public String getStatusIcon() {
-        return isDone ? "X" : " ";
-    }
+    public String getStatusIcon() { return isDone ? "X" : " "; }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
+
+    public boolean isDone() { return isDone; }
+
+    public abstract String toDataString();
 
     @Override
     public abstract String toString();

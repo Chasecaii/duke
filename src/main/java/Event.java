@@ -11,4 +11,9 @@ public class Event extends Task {
         return "[" + TaskType.EVENT.code() + "][" + getStatusIcon() + "] "
                 + getDescription() + " (at: " + at + ")";
     }
+
+    @Override
+    public String toDataString() {
+        return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | " + at;
+    }
 }
