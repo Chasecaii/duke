@@ -32,10 +32,51 @@ public class ChaseBot {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(idx));
                 }
-            } else {
-                Task t = new Task(line);
+            } else if (line.startsWith("todo")) {
+                String desc = line.length() > 4 ? line.substring(4).trim() : "";
+                if (desc.isEmpty()) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    continue;
+                }
+                Task t = new Todo(desc);
                 tasks.add(t);
-                System.out.println("added: " + line);
+                System.out.println("added: " + t);
+            } else if (line.startsWith("deadline")) {
+                String rest = line.length() > 8 ? line.substring(8).trim() : "";
+                int sep = rest.lastIndexOf("/by");
+                if (sep == -1) {
+                    System.out.println("☹ OOPS!!! Use: deadline <desc> /by <time>");
+                    continue;
+                }
+                String desc = rest.substring(0, sep).trim();
+                String by = rest.substring(sep + 3).trim(); // skip "/by"
+                if (desc.isEmpty() || by.isEmpty()) {
+                    System.out.println("☹ OOPS!!! Use: deadline <desc> /by <time>");
+                    continue;
+                }
+                Task t = new Deadline(desc, by);
+                tasks.add(t);
+                System.out.println("added: " + t);
+            } else if (line.startsWith("event")) {
+                String rest = line.length() > 5 ? line.substring(5).trim() : "";
+                int sep = rest.lastIndexOf("/at");
+                if (sep == -1) {
+                    System.out.println("☹ OOPS!!! Use: event <desc> /at <time>");
+                    continue;
+                }
+                String desc = rest.substring(0, sep).trim();
+                String at = rest.substring(sep + 3).trim(); // skip "/at"
+                if (desc.isEmpty() || at.isEmpty()) {
+                    System.out.println("☹ OOPS!!! Use: event <desc> /at <time>");
+                    continue;
+                }
+                Task t = new Event(desc, at);
+                tasks.add(t);
+                System.out.println("added: " + t);
+            } else {
+                Task t = new Todo(line); 
+                tasks.add(t);
+                System.out.println("added: " + t);
             }
         }
         sc.close();
