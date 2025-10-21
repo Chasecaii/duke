@@ -60,6 +60,19 @@ public class ChaseBot {
             return;
         }
 
+        // ✅ Level-6: delete
+        if (line.startsWith("delete ")) {
+            int idx = parseIndex(line.substring(7).trim());
+            if (!isValidIndex(idx, tasks)) {
+                throw new DukeException("☹ OOPS!!! The task index is invalid.");
+            }
+            Task removed = tasks.remove(idx);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + removed);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            return;
+        }
+
         if (line.startsWith("todo")) {
             String desc = line.length() > 4 ? line.substring(4).trim() : "";
             if (desc.isEmpty()) {
@@ -105,7 +118,6 @@ public class ChaseBot {
             return;
         }
 
-        // 未知命令
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
