@@ -71,6 +71,10 @@ public class Storage {
                 if (parts.length < 4) return null;
                 t = new Event(desc, parts[3].trim());
                 break;
+            case "A":
+                if (parts.length < 4) return null;
+                t = new DoAfter(desc, parts[3].trim());
+                break;
             default:
                 return null;
         }

@@ -148,6 +148,23 @@ public class ChaseBot {
             return true;
         }
 
+        if (line.startsWith("doafter")) {
+            String rest = line.length() > 7 ? line.substring(7).trim() : "";
+            int sep = rest.lastIndexOf("/after");
+            if (sep == -1) {
+                throw new DukeException("☹ OOPS!!! Use: doafter <desc> /after <prerequisite>");
+            }
+            String desc = rest.substring(0, sep).trim();
+            String after = rest.substring(sep + 6).trim(); // skip "/after"
+            if (desc.isEmpty() || after.isEmpty()) {
+                throw new DukeException("☹ OOPS!!! Use: doafter <desc> /after <prerequisite>");
+            }
+            Task t = new DoAfter(desc, after);
+            tasks.add(t);
+            System.out.println("added: " + t);
+            return true;
+        }
+
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 

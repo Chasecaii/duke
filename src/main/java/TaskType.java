@@ -1,7 +1,8 @@
 public enum TaskType {
     TODO("T"),
     DEADLINE("D"),
-    EVENT("E");
+    EVENT("E"),
+    AFTER("A");
 
     private final String code;
 
