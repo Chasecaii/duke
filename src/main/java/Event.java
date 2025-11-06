@@ -32,6 +32,11 @@ public class Event extends Task {
 
     /* ------- same helpers as Deadline ------- */
 
+    /**
+     * Tries to parse natural date expressions such as 'today', 'tomorrow',
+     * 'next Mon', and common date patterns (e.g., yyyy-MM-dd, dd/MM/yyyy, d MMM yyyy).
+     * Returns null if parsing fails.
+     */
     private static LocalDate tryParseNaturalDate(String s) {
         if (s == null) return null;
         String text = s.trim().toLowerCase(Locale.ENGLISH);

@@ -11,6 +11,11 @@ public class ChaseBot {
                                                
     """;
 
+    /**
+     * Entry-point of ChaseBot. Starts the REPL loop, loads storage, and handles user input.
+     * Prints a greeting banner and waits for commands until 'bye' is entered.
+     * Errors are reported with user-friendly messages.
+     */
     public static void main(String[] args) {
         System.out.print(BANNER);
         System.out.println("Hello! I'm Chase");
@@ -23,6 +28,9 @@ public class ChaseBot {
 
         while (true) {
             String line = sc.nextLine().trim();
+            // Assert: Input should not be empty
+            assert line != null && !line.trim().isEmpty() : "Input should not be empty";
+
             if (line.equals("bye")) {
                 storage.save(tasks);
                 System.out.println("Bye. Hope to see you again soon!");
@@ -43,6 +51,7 @@ public class ChaseBot {
     }
 
     private static boolean handleLine(String line, ArrayList<Task> tasks) throws DukeException {
+
         if (line.equals("list")) {
             if (tasks.isEmpty()) {
                 System.out.println("You have no tasks yet.");
@@ -56,6 +65,9 @@ public class ChaseBot {
 
         if (line.startsWith("mark ")) {
             int idx = parseIndex(line.substring(5).trim());
+            // ASSERT: task index must within range
+            assert idx >= 0 && idx < tasks.size() : "Task index out of range: " + idx;
+
             if (!isValidIndex(idx, tasks)) {
                 throw new DukeException("☹ OOPS!!! The task index is invalid.");
             }
@@ -67,6 +79,9 @@ public class ChaseBot {
 
         if (line.startsWith("unmark ")) {
             int idx = parseIndex(line.substring(7).trim());
+            // ASSERT: task index must within range
+            assert idx >= 0 && idx < tasks.size() : "Task index out of range: " + idx;
+
             if (!isValidIndex(idx, tasks)) {
                 throw new DukeException("☹ OOPS!!! The task index is invalid.");
             }
@@ -78,6 +93,9 @@ public class ChaseBot {
 
         if (line.startsWith("delete ")) {
             int idx = parseIndex(line.substring(7).trim());
+            // ASSERT: task index must within range
+            assert idx >= 0 && idx < tasks.size() : "Task index out of range: " + idx;
+
             if (!isValidIndex(idx, tasks)) {
                 throw new DukeException("☹ OOPS!!! The task index is invalid.");
             }

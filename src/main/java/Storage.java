@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * Handles reading from and writing to the local data file.
+ * The file format is a simple, human-readable text format.
+ */
 public class Storage {
     private final String filePath;
 
@@ -20,6 +24,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the backing file. Non-parsable lines are skipped safely.
+     * @return list of tasks loaded from disk (may be empty if file is missing).
+     * @throws RuntimeException if an unrecoverable I/O error occurs.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);
@@ -32,7 +41,9 @@ public class Storage {
                 line = line.trim();
                 if (line.isEmpty()) continue;
                 Task t = parseLine(line);
+                assert t != null : "Parsed task should not be null for line: " + line;
                 if (t != null) tasks.add(t);
+                
             }
         } catch (Exception e) {
             System.out.println("☹ OOPS!!! Failed to load save file. Starting with an empty list.");
@@ -40,6 +51,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given tasks to disk using the unified data format.
+     * @param tasks list of tasks to persist
+     */
     public void save(ArrayList<Task> tasks) {
         ensureParentDir();
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
@@ -59,6 +74,7 @@ public class Storage {
         boolean done = "1".equals(parts[1].trim());
         String desc = parts[2].trim();
         Task t;
+
         switch (type) {
             case "T":
                 t = new Todo(desc);
