@@ -2,13 +2,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChaseBot {
+    private static final String BANNER = """
+      ____ _                      ____        _   
+     / ___| |__   __ _ ___  ___  | __ )  ___ | |_ 
+    | |   | '_ \\ / _` / __|/ _ \\ |  _ \\ / _ \\| __|
+    | |___| | | | (_| \\__ \\  __/ | |_) | (_) | |_ 
+     \\____|_| |_|\\__,_|___/\\___| |____/ \\___/ \\__|
+                                               
+    """;
+
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Duke");
+        System.out.print(BANNER); 
+        System.out.println("Hello! I'm Chase");
         System.out.println("What can I do for you?");
 
         Scanner sc = new Scanner(System.in);
 
-        Storage storage = new Storage("data/duke.txt");
+        Storage storage = new Storage("data/chase.txt");
         ArrayList<Task> tasks = storage.load();
 
         while (true) {
@@ -155,7 +165,7 @@ public class ChaseBot {
                 throw new DukeException("☹ OOPS!!! Use: doafter <desc> /after <prerequisite>");
             }
             String desc = rest.substring(0, sep).trim();
-            String after = rest.substring(sep + 6).trim(); // skip "/after"
+            String after = rest.substring(sep + 6).trim();
             if (desc.isEmpty() || after.isEmpty()) {
                 throw new DukeException("☹ OOPS!!! Use: doafter <desc> /after <prerequisite>");
             }
