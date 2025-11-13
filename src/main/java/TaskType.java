@@ -1,3 +1,7 @@
+// REMARK (code reuse):
+// JUnit 5 test structure (annotations/assertions) adapted from JUnit 5 User Guide examples.
+// Source: https://junit.org/junit5/docs/current/user-guide/
+
 public enum TaskType {
     TODO("T"),
     DEADLINE("D"),

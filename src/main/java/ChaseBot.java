@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChaseBot {
+    // REMARK (asset reuse):
+    // ASCII art banner generated via Patorjk/FIGlet online tool.
+    // Source: https://patorjk.com/software/taag/
+    // Banner is not functional logic; application code is self-written.
     private static final String BANNER = """
       ____ _                      ____        _   
      / ___| |__   __ _ ___  ___  | __ )  ___ | |_ 
@@ -18,6 +22,8 @@ public class ChaseBot {
      */
     public static void main(String[] args) {
         System.out.print(BANNER);
+        // REMARK:
+        // Greeting copy is adapted from the original Duke spec’s “Hello! I'm Duke” phrasing.
         System.out.println("Hello! I'm Chase");
         System.out.println("What can I do for you?");
 
@@ -192,7 +198,8 @@ public class ChaseBot {
             System.out.println("added: " + t);
             return true;
         }
-
+        // REMARK (spec wording):
+        // Error message wording follows the TIC2002 Duke specification style guide.
         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 

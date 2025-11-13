@@ -29,6 +29,9 @@ public class Storage {
      * @return list of tasks loaded from disk (may be empty if file is missing).
      * @throws RuntimeException if an unrecoverable I/O error occurs.
      */
+    // REMARK (format reuse):
+    // Line format "T|D|E|A | done | description | extra" follows the Duke project spec (official sample format).
+    // Source/specification reference: TIC2002 project brief.
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File f = new File(filePath);

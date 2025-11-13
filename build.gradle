@@ -1,3 +1,7 @@
+// REMARK (code reuse):
+// Gradle configuration adapted from Gradle official samples and JUnit 5 user guide.
+// Source: https://docs.gradle.org/ and https://junit.org/junit5/docs/current/user-guide/
+
 plugins {
     id 'java'
     id 'application'
